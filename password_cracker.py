@@ -38,17 +38,14 @@ def crack_sha1_hash(hash, use_salts=False):
 
   # check paswords
   for pw in passwords:
-    if use_salts:
-      pw_var = []
+    pw_var = [pw]
+    if use_salts:   
       # NOT: salt + pw + salt
       for salt in salts:
         pw_var.append(pw + salt)
         pw_var.append(salt + pw)
-      for pws in pw_var:  
-        if check_hash(pws, hash)==True:
-          return pw
-    else:
-      if check_hash(pw, hash)==True:
+    for pws in pw_var:  
+      if check_hash(pws, hash)==True:
         return pw
 
   return "PASSWORD NOT IN DATABASE"
